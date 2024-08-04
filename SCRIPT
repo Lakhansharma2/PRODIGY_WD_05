@@ -1,0 +1,17 @@
+const locationInput = document.getElementById('location-input');
+
+const apiEndpoint = 'https://api.openweathermap.org/data/2.5/weather';
+const apiKey = 'YOUR_API_KEY';
+
+document.getElementById('fetch-button').addEventListener('click', () => {
+  const location = locationInput.value;
+  fetch(`${apiEndpoint}?q=${location}&appid=${apiKey}`)
+   .then(response => response.json())
+   .then(data => {
+      document.getElementById('weather-conditions').innerHTML = `Current weather: ${data.weather[0].description}`;
+      document.getElementById('temperature').innerHTML = `Temperature: ${data.main.temp}°C`;
+      document.getElementById('humidity').innerHTML = `Humidity: ${data.main.humidity}%`;
+      document.getElementById('wind-speed').innerHTML = `Wind speed: ${data.wind.speed} m/s`;
+    })
+   .catch(error => console.error(error));
+});
